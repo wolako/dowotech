@@ -1,0 +1,119 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Bitter:wght@500&family=PT+Serif&display=swap');
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+@import 'bootstrap-icons/font/bootstrap-icons.min.css';
+
+*{
+    font-family: 'Bitter', serif;
+    font-family: 'PT Serif', serif;
+}
+
+body{
+    background-color: #100b24;
+}
+
+.banner{
+    background-color: #0c2b2b;
+    color: #fff;
+    
+    .container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 70vh;
+
+        .banner-text{
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+
+            .service-title h3{
+                margin-top: 100px;
+                margin: 0;
+            }
+        }
+    }
+}
+
+.cont{
+    background-color: #eee;
+    padding: 30px 0;
+    h4{
+        color: #222;
+        font-weight: 600;
+        padding: 10px;
+        text-align: center;
+    }
+    p{
+        color: #222;
+        padding-top: 10px;
+    }
+    .contact{
+        text-align: center;
+        border-radius: 10px;
+    }
+}
+
+.service-title{
+    h3{
+      font-size: 3rem;
+      font-weight: bold;
+    }
+}
+
+h3{
+    padding: 20px;
+    font-size: 2rem;
+}
+h5{
+    font-size: 1.5rem;
+}
+p{
+    font-size: 1rem;
+}
+h4{
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.btn{
+    padding: 8px 10px;
+    color: #bebebe;
+    border: 1px solid #e74c3c;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover{
+        background-color: #c0392b;
+        color: #fff;
+    }
+}
+
+/* Écrans de petite taille (mobiles) */
+@media (max-width: 576px) {
+    h3{
+        font-size: 2rem;
+    }
+    h4{
+        font-size: 1.6rem;
+        padding: 0;
+        margin: 0;
+    }
+
+    .btn{
+        &:hover{
+            color: #fff;
+        }
+    }
+}
+  
+  /* Écrans de taille moyenne (tablettes) */
+@media (min-width: 577px) and (max-width: 992px) {
+    .btn{
+      &:hover{
+            color: #fff;
+        }
+    }
+}

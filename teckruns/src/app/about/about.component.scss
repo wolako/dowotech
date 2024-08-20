@@ -1,0 +1,55 @@
+.banner{
+    background: url('/../assets/images/fond1.png') rgba($color: #000000, $alpha: .5);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode: multiply;
+}
+.main-about{
+    .container{
+        .row{
+            h2, h3, p{
+                color: #fff;
+            }
+            .content-value{
+                margin-top: 20px;
+                background-color: #eee;
+                padding: 10px;
+                border-top-left-radius: 40px;
+                border-bottom-right-radius: 40px;
+                .text{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    border-radius: 50px;
+                    margin: 0 auto;
+                    text-align: center;
+                    
+                    h4{
+                        color: #222;
+                    }
+                    p{
+                        padding: 10px;
+                        background-color: #2d2b30;
+                        border-radius: 30px;
+                        color: #fff;
+                    }
+                    .bi{
+                        font-size: 1.5rem;
+                        background-color: #251436;
+                        padding: 10px;
+                        border-radius: 50%;
+                        text-align: center;
+                        margin: 0;
+                        color: #fff;
+                    }
+                }
+                img{
+                    height: 200px;
+                    width: 200px;
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
+}

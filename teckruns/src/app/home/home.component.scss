@@ -1,0 +1,167 @@
+// .carousel-ban{
+//   .container{
+//     .row{
+//       border: #eee 1px solid;
+//       border-radius: 10px;
+//       height: 70vh;
+//       .carousel{
+//         .carousel-inner{
+//           .carousel-item{
+//             img{
+//               margin: auto;
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+.ban{
+  .container{
+    .row{
+      border: #ddd 1px solid;
+      background: linear-gradient(to right, #03263d, #1f163a);
+      color: #fff; 
+      padding: 50px 0;
+      border-radius: 10px;
+    }
+  }
+}
+
+.about{
+    padding: 50px 0;
+
+    .container{
+        .row{
+          text-align: center;
+          margin: 0;
+          padding: 0;
+            .text{
+                
+                color: #fff;
+                border: 1px solid #85331a;
+                border-radius: 10px;
+                margin: 5px 0;
+
+                h3{
+                    text-align: center;
+                    padding: 20px;
+                }
+                p{
+                    text-align: center;
+                }
+                .btn-about{
+                    text-align: center;
+                    margin-bottom: 10px;
+                }
+            }
+            img{
+                height: 300px;
+                width: 100%;
+                border-radius: 10px;
+            }
+        }
+    }
+}
+
+.services{
+    padding: 20px 0;
+    .container{
+        padding: 20px 0;
+        
+        h4, p{
+            text-align: center;
+            padding: 0 50px;
+            color: #fff;
+        }
+        p{
+            font-size: 1.2rem;
+            padding: 20px;
+        }
+    }
+}
+
+.contenu-video{
+    .container{
+        padding: 40px 0;
+        video{
+            height: 90%;
+            width: 100%;
+            border-radius: 10px;
+        }
+    }
+}
+
+/* Écrans de petite taille (mobiles) */
+@media (max-width: 576px) {
+  .ban{
+    .container{
+      .row{
+        h4, p{
+          padding-bottom: 20px;
+          text-align: left;
+        }
+        img{
+          margin-top: 10px;
+          text-align: center;
+        }
+      }
+    }
+  }
+  
+    .col img {
+      width: 100%;
+      height: auto;
+    }
+  
+    .services h4 {
+      text-align: center;
+    }
+  
+    .atout h4, .atout p {
+      text-align: center;
+    }
+  
+    .atout img {
+      width: 100%;
+      height: auto;
+    }
+  
+    .btn-about a, .contact .btn {
+      width: 100%;
+      text-align: center;
+    }
+}
+  
+  /* Écrans de taille moyenne (tablettes) */
+// @media (min-width: 577px) and (max-width: 992px) {
+//     .jumb {
+//       padding: 30px;
+//     }
+  
+//     .col img {
+//       width: 100%;
+//       height: auto;
+//     }
+  
+//     .services h4 {
+//       text-align: center;
+//     }
+  
+//     .atout h4, .atout p {
+//       text-align: center;
+//     }
+  
+//     .atout img {
+//       width: 100%;
+//       height: auto;
+//     }
+  
+//     .btn-about a, .contact .btn {
+//       width: 100%;
+//       text-align: center;
+//     }
+// }
+
+  

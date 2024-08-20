@@ -1,0 +1,26 @@
+.services{ 
+    .row{
+        .col{
+            margin: 8px 0;
+            .card{
+                cursor: pointer;
+                padding: 10px;
+                
+                .content{
+                   display: flex;
+                   justify-content: flex-start;
+                   align-items: center;
+
+                   img{
+                    height: 50px;
+                    width: 60px;
+                    margin-right: 20px;
+                   }
+                }
+                p{
+                    padding-top: 10px;
+                }
+            }
+        }
+    }
+}

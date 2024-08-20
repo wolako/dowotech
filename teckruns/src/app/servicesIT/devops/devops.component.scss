@@ -1,0 +1,68 @@
+.banner{
+    background: url('/../assets/images/fond4.png')rgba($color: #000000, $alpha: .7);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode: multiply;
+}
+
+.devops-descrip{
+    background-color: #eee;
+    .container{
+        padding: 20px 0;
+
+        .row{
+            .devops{
+                text-align: center;
+                color: #222;
+            }
+        }
+    }
+}
+.service-devops{
+    padding: 50px 0;
+
+    .container{
+        h4{
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+
+        .row{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+
+            .column{
+                // flex: 0 0 calc(33.333% - 20px);
+                margin-bottom: 20px;
+
+                .text-devops{
+                    background-color: rgba($color: #090824, $alpha: .9); 
+                    padding: 10px; 
+                    border-radius: 10px;
+                    border: #858585 solid 1px;
+                    text-align: center;
+                    
+                    h5, p{
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .service-devops .column {
+        flex: 0 0 calc(50% - 20px);
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .service-devops .column {
+        flex: 0 0 calc(100% - 20px); 
+    }
+}

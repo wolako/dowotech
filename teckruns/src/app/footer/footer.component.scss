@@ -1,0 +1,36 @@
+.page-footer{
+    background-color: #235461;
+    padding: 20px 0;
+
+    .container{
+        h5{
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+        ul{
+            text-align: left;
+            list-style-type: none;
+            padding: 0;
+            
+            li{
+                margin-bottom: 10px;
+                
+                a{
+                    text-decoration: none;
+                    color: #fff;
+                    &:hover{
+                        cursor: pointer;
+                        text-decoration: underline 3px #038f39;
+                    }
+                }
+            }
+        }
+
+        .reso{
+            .bi{
+                color: #fff;
+                font-size: 1.4rem;
+            }
+        }
+    }
+}

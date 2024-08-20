@@ -1,0 +1,86 @@
+<div class="atout">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <h4>Dowotech vous accompagne dans le processuce de votre transformation</h4>
+          <p>Vous ne serez jamais seul. Nous vous accompagnons du debut de votre projet jusqu'à son accomplissement</p>
+        </div>
+      </div>
+  
+      <div class="row ligne">
+        <div class="col-md-6">
+          <div class="row">
+            <h5 (click)="toggleCollapse('Expertise')"
+              [attr.aria-expanded]="!isCollapsedExpertise"
+              aria-controls="collapseExample">
+              Expertise technologique
+              <i class="bi" [class.bi-chevron-right]="isCollapsedExpertise" [class.bi-chevron-down]="!isCollapsedExpertise"></i>
+            </h5>
+            <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedExpertise">
+              <div class="carte" *ngIf="!isCollapsedExpertise">
+                <p>Nous fournissons une expertise approfondie pour vous aider à comprendre 
+                  et à adopter de nouvelles technologies pour votre entreprise</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <h5
+              (click)="toggleCollapse('Accompagnement')"
+              [attr.aria-expanded]="!isCollapsedAccompagnement"
+              aria-controls="collapseExample">
+              Accompagnement au changement
+              <i class="bi" [class.bi-chevron-right]="isCollapsedAccompagnement" 
+                [class.bi-chevron-down]="!isCollapsedAccompagnement">
+              </i>
+            </h5>
+            <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedAccompagnement">
+              <div class="carte" *ngIf="!isCollapsedAccompagnement">
+                <p>
+                  Conscient que la transformation digitale implique souvent des changements importants dans les processus et la culture 
+                  d'une entreprise. Nous accompagnons nos clients à gérer efficacement la transition.
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <h5 (click)="toggleCollapse('Formation')"
+            [attr.aria-expanded]="!isCollapsedFormation"
+            aria-controls="collapseExample">
+              Formation et développement des compétences
+              <i class="bi" [class.bi-chevron-right]="isCollapsedFormation" 
+              [class.bi-chevron-down]="!isCollapsedFormation"></i>
+            </h5>
+            <div class="carte" *ngIf="!isCollapsedFormation">
+              <p> 
+                Les entreprises de technologie peuvent offrir des programmes de formation et de développement 
+                des compétences pour garantir que le personnel est bien équipé pour utiliser les nouvelles 
+                technologies.
+              </p>
+            </div>
+          </div>
+          
+          <div class="row">
+            <h5 (click)="toggleCollapse('Suivi')"
+            [attr.aria-expanded]="!isCollapsedSuivi"
+            aria-controls="collapseExample">
+            Suivi et support continu
+            <i class="bi" [class.bi-chevron-right]="isCollapsedSuivi" 
+            [class.bi-chevron-down]="!isCollapsedSuivi"></i>
+            </h5>
+            <div class="carte" *ngIf="!isCollapsedSuivi">
+              <p>
+                La transformation digitale est un processus continu. Les entreprises de technologie 
+                peuvent fournir un suivi et un support continu pour s'assurer que les solutions mises 
+                en place évoluent avec les besoins changeants des clients.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mt-3">
+          <img src="../assets/images/3.png" alt="" class="img-fluid">
+        </div>
+      </div>
+    </div>
+</div>
