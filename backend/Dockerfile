@@ -1,11 +1,17 @@
-# FROM node:18-alpine
+FROM node:18-alpine
 
-# WORKDIR /app
+WORKDIR /app
 
-# COPY package*.json ./
-# RUN npm install
+COPY functions/package*.json ./functions/
 
-# COPY . .
+WORKDIR /app/functions
 
-# EXPOSE 3000
-# CMD ["node", "server.js"]
+RUN npm ci --only=production
+
+WORKDIR /app
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["node", "server.js"]

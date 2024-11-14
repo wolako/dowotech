@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class ContactService {
 
-  private apiUrl = 'http://localhost:3000/contacts';
+  private apiUrl = 'http://backend:3000/contacts';
 
   constructor(private http: HttpClient) { }
 

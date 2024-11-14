@@ -80,13 +80,14 @@ h4{
 
 .btn{
     padding: 8px 10px;
-    color: #bebebe;
-    border: 1px solid #e74c3c;
+    color: #222;
+    background-color: #c0392b;
+    // border: 1px solid #e74c3c;
     cursor: pointer;
     transition: background-color 0.3s;
 
     &:hover{
-        background-color: #c0392b;
+        background-color: #701c13;
         color: #fff;
     }
 }

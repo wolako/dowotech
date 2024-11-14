@@ -27,20 +27,20 @@ export class HeaderComponent implements OnInit {
       subItems: [
         {
           path: '/developpement',
-          name: 'Développement'
+          name: 'Développement d\'apllication'
         },
         {
           path: '/infrastructure-it',
-          name: 'InfrastructureIT'
+          name: 'Infrastructure IT'
         },
         {
           path: '/devops',
           name: 'DevOps'
         },
-        {
-          path: '/gestion-cloud',
-          name: 'Gestion Cloud'
-        }
+        // {
+        //   path: '/gestion-cloud',
+        //   name: 'Gestion Cloud'
+        // }
       ],
     },
     {

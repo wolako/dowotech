@@ -1,39 +1,54 @@
-# version: '3.7'
-# services:
-#   mysql:
-#     image: mysql:8.0
-#     restart: always
-#     environment:
-#       MYSQL_ROOT_PASSWORD: dowoDbTech
-#       MYSQL_DATABASE: dowotech_contact
-#       MYSQL_USER: wola
-#       MYSQL_PASSWORD: wol@kodw
-#     ports:
-#       - "3306:3306"
-#     volumes:
-#       - db_data:/var/lib/mysql
-#       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+services:
+  mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: dowoDbTech
+      MYSQL_DATABASE: dowotech_contact
+      MYSQL_USER: wola
+      MYSQL_PASSWORD: wol@kodw
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
-#   backend:
-#     build: ./backend
-#     restart: always
-#     ports:
-#       - "3000:3000"
-#     environment:
-#       - DB_HOST=mysql
-#       - DB_USER=youruser
-#       - DB_PASSWORD=yourpassword
-#       - DB_DATABASE=yourdatabase
-#     depends_on:
-#       - mysql
+  backend:
+    build: ./backend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST=mysql
+      DB_USER=wola
+      DB_PASSWORD=wol@kodw
+      DB_DATABASE=dowotech_contact
+    depends_on:
+      - mysql
 
-#   frontend:
-#     build: ./frontend
-#     restart: always
-#     ports:
-#       - "80:80"
-#     depends_on:
-#       - backend
+  frontend:
+    build: ./teckruns
+    restart: always
+    ports:
+      - "80"
+    depends_on:
+      - backend
 
-# volumes:
-#   db_data:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - frontend
+    networks:
+      - dowotech-network
+
+volumes:
+  db_data:
+
+networks:
+  dowotech-network:
+    driver: bridge
