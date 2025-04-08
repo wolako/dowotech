@@ -8,12 +8,13 @@ import { DeveloppementComponent } from './servicesIT/developpement/developpement
 import { InfrastructureITComponent } from './servicesIT/infrastructure-it/infrastructure-it.component';
 import { DevopsComponent } from './servicesIT/devops/devops.component';
 import { GestionCloudComponent } from './servicesIT/gestion-cloud/gestion-cloud.component';
+import { NosServicesComponent } from './nos-services/nos-services.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: ContactComponent },
-  // { path: 'services', component: ServicesComponent },
+  { path: 'nos-services', component: NosServicesComponent },
   { path: 'developpement', component: DeveloppementComponent},
   { path: 'infrastructure-it', component: InfrastructureITComponent},
   { path: 'devops', component: DevopsComponent},
@@ -22,7 +23,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: false })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

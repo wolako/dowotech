@@ -11,28 +11,48 @@ services:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql     
+    networks:
+      - dowotech-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
 
   backend:
     build: ./backend
     restart: always
     ports:
-      - "3000:3000"
+      - "3001:3001"
     environment:
-      DB_HOST=mysql
-      DB_USER=wola
-      DB_PASSWORD=wol@kodw
-      DB_DATABASE=dowotech_contact
+      DB_HOST: mysql
+      DB_USER: wola
+      DB_PASSWORD: wol@kodw
+      DB_DATABASE: dowotech_contact
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
+    networks:
+      dowotech-network:
+        aliases:
+         - backend
 
   frontend:
-    build: ./teckruns
+    build:
+      context: .
+      dockerfile: teckruns/Dockerfile
     restart: always
+    image: dowotech-frontend-1
     ports:
-      - "80"
+      - "8080:80"
     depends_on:
       - backend
+    networks:
+      - dowotech-network
+    container_name: dowotech-frontend-1
+    volumes:
+      - frontend_build:/var/www/dowotech-frontend/teckruns
 
   nginx:
     image: nginx:latest
@@ -40,15 +60,23 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/dowotech.conf:/etc/nginx/conf.d/default.conf
+      - frontend_build:/var/www/dowotech-frontend/teckruns
+      - /etc/letsencrypt/live/dowotech.com:/etc/letsencrypt/live/dowotech.com
+      - /etc/letsencrypt/archive/dowotech.com:/etc/letsencrypt/archive/dowotech.com
+      - /etc/letsencrypt/ssl-dhparams.pem:/etc/ssl/certs/dhparam.pem
     depends_on:
       - frontend
+      - backend
     networks:
       - dowotech-network
 
 volumes:
   db_data:
+  frontend_build:
 
 networks:
   dowotech-network:
+    name: dowotech-network
     driver: bridge
+      #external: true

@@ -2,16 +2,12 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-COPY functions/package*.json ./functions/
+COPY package.json package-lock.json ./
 
-WORKDIR /app/functions
-
-RUN npm ci --only=production
-
-WORKDIR /app
+RUN npm install --production
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 3001
 
 CMD ["node", "server.js"]

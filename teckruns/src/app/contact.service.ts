@@ -2,26 +2,36 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
+//import { environment } from '../../environments/environment';      
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContactService {
 
-  private apiUrl = '/api/contacts';
+  private baseUrl = 'http://dowotech.com/api';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+      console.log("API URL utilisée :", this.baseUrl);
+  }
 
-  addContact(nom: string, prenom: string, email: string, phone: string, services: string, message: string): Observable<any> {
-    return this.http.post<any>(this.apiUrl, { nom, prenom, email, phone, services, message })
-      .pipe(
-        catchError(this.handleError)
-      );
+  addContact(contact: any): Observable<any> {
+   const headers = { 'Content-Type': 'application/json' };
+   return this.http.post<any>(`${this.baseUrl}/contacts`, contact, { headers }
+   ).pipe(
+       catchError(this.handleError)
+   );
   }
 
   private handleError(error: HttpErrorResponse) {
-    // Logique de gestion des erreurs
-    console.error('An error occurred:', error.error);
+    console.error('Erreur API:', error);
+    if (error.error instanceof ErrorEvent) {
+           // Erreur côté client
+      console.error('Erreur côté client:', error.error.message);
+    } else {
+        // Erreur côté serveur
+      console.error(`Code HTTP: ${error.status}, Message: ${error.message}`);
+    }
     return throwError('Une erreur est survenue lors de l\'envoi du formulaire. Veuillez réessayer plus tard.');
   }
 }

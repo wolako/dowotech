@@ -1,42 +1,54 @@
-<footer class="page-footer text-white">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12 col-lg-3">
-          <h5>DOWOTECH</h5>
-          <p>
-            Votre partenaire de confiance pour l'innovation technologique, l'excellence 
-            opérationnelle et la croissance durable. Ensemble, nous façonnons le futur numérique.
-          </p>
-        </div>
-        <div class="col-sm-12 col-lg-3">
-          <h5>Solutions</h5>
-          <ul>
-            <li><a routerLink="/developpement">Développement d'application</a></li>
-            <li><a routerLink="/infrastructure-it">Infrastructure IT</a></li>
-            <li><a routerLink="/devops">DevOps</a></li>
-          </ul>
-        </div>
-        <div class="col-sm-12 col-lg-3">
-          <h5>A Propos</h5>
-            <p>
-              Nous sommes dévoués à l'innovation, à la créativité et à la satisfaction du client.
-            </p>
-          <a class="btn mb-3" routerLink="/about">En savoir plus</a>
-        </div>
-        <div class="col-sm-12 col-lg-3">
-          <h5>Suivez-nous</h5>
-          <div class="d-flex flex-colum flex-lg-row justify-content-start my-4 align-items-center gap-3 reso">
-            <a href="#facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#linkedin"><i class="bi bi-linkedin"></i></a>
-            <a href="#google"><i class="bi bi-google"></i></a>
-            <a href="#instagram"><i class="bi bi-instagram"></i></a>
-          </div>
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-grid">
+      <!-- Colonne DOWOTECH -->
+      <div class="footer-column">
+        <h5>DOWOTECH</h5>
+        <p>
+          Partenaire technologique expert en développement d'applications, 
+          infrastructures réseau et solutions cloud. Nous transformons 
+          vos challenges techniques en avantages compétitifs.
+        </p>
+      </div>
+
+      <!-- Colonne Solutions -->
+      <div class="footer-column">
+        <h5>Solutions</h5>
+        <ul class="footer-links">
+          <li><a routerLink="/developpement">Développement d'Apps</a></li>
+          <li><a routerLink="/infrastructure-it">Infrastructures Réseau</a></li>
+          <li><a routerLink="/devops">Automatisation DevOps</a></li>
+          <li><a routerLink="/devops">Gestion Cloud</a></li>
+        </ul>
+      </div>
+
+      <!-- Colonne À Propos -->
+      <div class="footer-column">
+        <h5>À Propos</h5>
+        <p>
+          Spécialistes en ingénierie logicielle et infrastructures critiques.<br>
+          Nous conjuguons innovation technologique et exigence opérationnelle pour répondre aux défis des entreprises modernes.
+        </p>
+        <a mat-raised-button color="primary" 
+            (click)="navigate('/about')"
+            (touchstart)="navigate('/about')">
+          Découvrir notre ADN
+        </a>
+      </div>
+
+      <!-- Colonne Réseaux sociaux -->
+      <div class="footer-column">
+        <h5>Suivez-nous</h5>
+        <div class="social-icons">
+          <a mat-icon-button href="#"><mat-icon>facebook</mat-icon></a>
+          <a mat-icon-button href="#"><mat-icon>linkedin</mat-icon></a>
+          <a mat-icon-button href="#"><mat-icon>mail</mat-icon></a>
         </div>
       </div>
     </div>
+
     <div class="footer-copyright">
-      <div class="container text-white">
-      © 2024 Dowotech
-      </div>
+      © 2025 Dowotech - Tous droits réservés
     </div>
+  </div>
 </footer>

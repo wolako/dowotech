@@ -1,124 +1,64 @@
-<div class="banner">
+<!-- Banner Section -->
+  <mat-toolbar class="banner">
     <div class="container">
-        <div class="align-center">
-            <div class="service-title">
-                <h3>Infrastructure TI</h3>
-            </div>
-        </div>
+      <div class="service-title">
+        <h1>Infrastructure Réseau Haute Performance</h1>
+      </div>
     </div>
-</div>
-<div class="descrip-infra">
+  </mat-toolbar>
+  
+  <!-- Description Section -->
+  <section class="description-section">
+    <mat-card class="container description-card">
+      <mat-card-content>
+        <h3 class="main-title">
+          ⚡ Réduction de Latence • QoS Avancée • Monitoring 360°
+        </h3>
+        <p class="description-text">
+          Optimisation de l'infrastructure réseau avec des métriques clés :
+          <br>Déploiement de solutions Cisco ACI • Automatisation Ansible
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </section>
+  
+  <!-- Section compétence -->
+  <section class="section-competence">
     <div class="container">
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <div class="infra">
-                    <h3>🚀Transformez votre entreprise avec notre Service d'Infrastructure IT Innovant </h3>
-                    <p>
-                        Dans l'ère numérique actuelle, une infrastructure informatique solide est la clé 
-                        du succès pour toute entreprise ambitieuse. Chez Techrun, nous nous engageons à 
-                        transformer votre environnement technologique en une plateforme robuste, agile et sécurisée, 
-                        propulsant votre croissance et optimisant vos opérations.
-                    </p>
-                </div>
-            </div>
-        </div>
+      <h3 class="section-title">Notre Expertise Réseau</h3>
+      
+      <div class="services-grid">
+        <mat-card *ngFor="let service of services" class="service-card">
+          <mat-card-header>
+            <mat-card-title>{{service.title}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{service.description}}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
     </div>
-</div>
-<div class="service-infra">
-    <div class="container text-white">
+  </section>
 
-        <h4>Pourquoi nous choisir pour l'infrastructure de votre IT ?</h4>
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card">
-                    <h5>Architecture Évolutive</h5>
-                    <p>
-                        Nous concevons une infrastructure évolutive essentiel qui s'adapter aux changements 
-                        dynamiques du marché.
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <h5>Sécurité de Pointe</h5>
-                    <p>
-                        Nous mettons en place des solutions de sécurité robustes, des pare-feu avancés aux systèmes de 
-                        détection d'intrusions, pour garantir une protection complète contre les menaces numériques.
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <h5>Virtualisation et Cloud</h5>
-                    <p>
-                        Avec nos solutions de virtualisation et de cloud, maximisez l'efficacité de vos opérations.
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <h5>Gestion de la Performance</h5>
-                    <p>
-                        Avec nos solutions de gestion de la performance nous assurons que votre infrastructure 
-                        fonctionne de manière optimale.
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="../assets/images/fond4.png" alt="" class="img-fluid">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <h5>Support Technique de Qualité</h5>
-                    <p>
-                        Notre équipe de support technique dédiée est disponible pour résoudre rapidement 
-                        les problèmes, minimisant ainsi les temps d'arrêt et assurant une continuité opérationnelle 
-                        sans faille.
-                    </p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="row">
-            <h4>Avantages pour votre Entreprise</h4>
-
-            <div class="col-md-6 text">
-                <h5><i class="bi bi-check2-circle"></i>Optimisation des Coûts</h5>
-                <h5><i class="bi bi-check2-circle"></i>Agilité Opérationnelle</h5>
-                <h5><i class="bi bi-check2-circle"></i>Sécurité Renforcée</h5>
-                <h5><i class="bi bi-check2-circle"></i>Solutions de virtualisation</h5>
-            </div>
-            <div class="col-md-6">
-                <img src="../assets/images/3.png" alt="image d'aspect Technique" class="img-fluid">
-            </div>
-        </div>
-    </div>
-</div>
-<!-- contact section -->
-<div class="cont">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <h4>
-                    Contactez-nous dès aujourd'hui pour une consultation personnalisée et optimisez 
-                    votre infrastructure IT pour la réussite de votre entreprise
-                </h4>
-                <p>
-                    Notre équipe d'experts est prête à collaborer avec vous pour comprendre vos besoins spécifiques, identifier les opportunités d'optimisation, et élaborer une stratégie sur mesure pour propulser votre infrastructure IT vers de nouveaux sommets. 
-                    N'attendez plus, faites le premier pas vers une transformation digitale réussie !
-                </p>
-                <div class="contact">
-                    <a routerLink="/contact" class="btn">Contactez-nous</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="section-service py-4">
-    <h3 class="text-center text-white">Nos Services</h3>
+  <!-- Services Component -->
+  <section class="other-services">
+    <h3 class="section-title">Nos Services</h3>
     <techrun-nos-services></techrun-nos-services>
-</div>
+  </section>
+  
+  <!-- Contact Section -->
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-content">
+        <h3> Urgence Réseau ?</h3>
+        <p>
+          Nous vous offrons une consultation gratuite
+        </p>
+        <a mat-raised-button color="primary" (click)="navigateToContact()">
+          Contactez-nous
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  

@@ -1,33 +1,15 @@
-<div class="container">
-  <div class="services">
-    <div class="row">
-      <div class="col col-m3 col-l3" routerLink="/developpement">
-        <div class="card">
-          <div class="content">
-            <img src="../assets/images/developing.png" alt="">
-            <h4>Développement d'application</h4>
-          </div>
-          <p>Nous créons des sites web, des applications modernes et performants.</p>
-        </div>
-      </div>
-      <div class="col col-m3 col-l3" routerLink="/infrastructure-it">
-        <div class="card">
-          <div class="content">
-            <img src="../assets/images/cyber-securite.png" alt="">
-            <h4>Infrastructure IT</h4>
-          </div>
-          <p>Libérez le potentiel de votre entreprise avec notre Service d'Infrastructure IT Innovant !</p>
-        </div>
-      </div>
-      <div class="col col-m3 col-l3" routerLink="/devops">
-        <div class="card">
-          <div class="content">
-            <img src="../assets/images/agile.png" alt="">
-            <h4>DevOps</h4>
-          </div>
-          <p>Transformez Votre Développement avec Nos Services DevOps Avancés !</p>
-        </div>
+<!-- nos-services.component.html -->
+<div class="services-container">
+  <mat-card *ngFor="let service of services" 
+            class="service-card"
+            (click)="navigate(service.link)"
+            >
+    <div class="card-content">
+      <img [src]="service.image" [alt]="service.title" class="service-image">
+      <div class="text-content">
+        <h3 class="service-title">{{service.title}}</h3>
+        <p class="service-description">{{service.description}}</p>
       </div>
     </div>
-  </div>
+  </mat-card>
 </div>

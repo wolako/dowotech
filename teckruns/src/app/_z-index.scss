@@ -1,0 +1,25 @@
+// 🌌 Base Layers
+$z-index-background: -1;
+$z-index-default: 1;
+
+// 🧭 Layout
+$z-index-header: 100;
+$z-index-footer: 90;
+
+// 🧩 UI Elements
+$z-index-dropdown: 300;
+$z-index-tooltip: 400;
+$z-index-overlay: 500;
+$z-index-backdrop: 800;
+
+// 📱 Navigation
+$z-index-menu-mobile: 999;
+$z-index-navbar-sticky: 1000;
+
+// 💬 Modals & Popups
+$z-index-modal: 1500;
+$z-index-dialog: 1600;
+$z-index-contact-form: 2000;
+
+// 🔔 Notifications
+$z-index-toast: 3000;

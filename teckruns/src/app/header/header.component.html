@@ -1,63 +1,116 @@
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg bg-dark bg-transparent">
+<mat-toolbar [class]="navbarColor" class="fixed-header">
   <div class="container">
-    <!-- logo -->
-    <a class="navbar-brand fs-4 text-white" routerLink="/">Dowotech</a>
-    <!-- Toggle btn -->
-    <button class="navbar-toggler shadow-none border-0" 
-      type="button" 
-      data-bs-toggle="offcanvas" 
-      data-bs-target="#offcanvasNavbar" 
-      aria-controls="offcanvasNavbar" 
-      aria-label="Toggle navigation">
-      <!-- <span class="navbar-toggler-icon"></span> -->
-      <i class="bi bi-justify-right"></i>
-      <!-- <i class="bi bi-list"></i> -->
-    </button>
-    <!-- sidebar -->
-    <div class="sidebar offcanvas offcanvas-start" 
-      tabindex="-1" id="offcanvasNavbar" 
-      aria-labelledby="offcanvasNavbarLabel">
-      <!-- Sidebar-header -->
-      <div class="offcanvas-header text-white border-bottom">
-        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Dowotech</h5>
-        <button type="button" 
-        class="btn-close btn-close-white shadow-none" 
-        data-bs-dismiss="offcanvas" 
-        aria-label="Close"></button>
-      </div>
-      <!-- Sidebar body -->
-      <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
-        <ul class="navbar-nav justify-content-center align-items-center fs-6 flex-grow-1 pe-3">
-          <li *ngFor="let menu of menus" class="nav-item" [ngClass]="{'dropdown': menu.subItems}">
-            <a *ngIf="!menu.subItems" class="nav-link text-white" 
-              [routerLink]="menu.path"
-              (click)="navigateAndCloseOffcanvas(menu.path)">
-              {{ menu.name }}
-            </a>
-            <div *ngIf="menu.subItems" class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle text-white"
-                role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false" 
-                (click)="toggleSubMenu()">Services</a>
-              <div *ngIf="showSubMenu" class="dropdown-menu">
-                <a *ngFor="let subItem of menu.subItems" 
-                  class="dropdown-item" [routerLink]="subItem.path"
-                  (click)="navigateAndCloseOffcanvas(subItem.path)">
-                  {{ subItem.name }}
-                </a>
-              </div>
+    <!-- Logo -->
+    <a mat-button routerLink="/" class="logo">
+      <span>Dowotech</span>
+    </a>
+
+    <!-- Menu desktop -->
+    <div class="desktop-menu">
+      <ng-container *ngFor="let menu of menus">
+        <!-- Éléments simples -->
+        <a *ngIf="!menu.subItems" 
+           mat-button 
+           [routerLink]="menu.path"
+           class="menu-item">
+          {{ menu.name }}
+        </a>
+
+        <!-- Menu déroulant Services -->
+        <div *ngIf="menu.subItems" 
+          class="menu-container"
+          [matMenuTriggerFor]="servicesMenu"
+          #menuTrigger="matMenuTrigger"
+          (mouseenter)="handleMenuHover(true)"
+          (mouseleave)="handleMenuHover(false)">
+
+          <button mat-button class="services-button">
+            {{ menu.name }}
+          </button>
+
+          <mat-menu #servicesMenu="matMenu" class="services-dropdown" hasBackdrop="false">
+            <div class="menu-panel"
+                (mouseenter)="handleMenuHover(true)"
+                (mouseleave)="handleMenuHover(false)">
+              
+              <button mat-menu-item 
+                      *ngFor="let subItem of menu.subItems" 
+                      (click)="navigate(subItem.path)"
+                      class="submenu-item">
+                {{ subItem.name }}
+              </button>
             </div>
-          </li>
-        </ul>
-        <!-- reseau sociaux -->
-        <div class="d-flex flex-colum flex-lg-row justify-content-center align-items-center gap-3 reso">
-          <a href="#facebook"><i class="bi bi-facebook"></i></a>
-          <a href="#linkedin"><i class="bi bi-linkedin"></i></a>
-          <a href="#google"><i class="bi bi-google"></i></a>
-          <a href="#instagram"><i class="bi bi-instagram"></i></a>
+          </mat-menu>
         </div>
-      </div>
+      </ng-container>
     </div>
+
+    <!-- Réseaux sociaux -->
+    <div class="social-icons">
+      <a *ngFor="let social of socials" 
+         [href]="social.link" 
+         target="_blank" 
+         mat-icon-button>
+        <mat-icon [fontIcon]="social.icon"></mat-icon>
+      </a>
+    </div>
+
+    <!-- Menu mobile -->
+    <button mat-icon-button 
+            class="mobile-menu" 
+            (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
   </div>
-</nav>
+</mat-toolbar>
+
+<!-- Menu mobile indépendant -->
+<mat-sidenav-container>
+  <mat-sidenav #sidenav position="end" class="mobile-sidenav">
+    <div class="mobile-header">
+      <button mat-icon-button (click)="sidenav.close()" class="close-button">
+        <mat-icon class="close-icon">close</mat-icon>
+      </button>
+    </div>
+
+    <div class="mobile-nav">
+      <!-- Accueil forcé en premier -->
+      <a mat-button 
+         *ngIf="menus[0].path" 
+         (click)="navigate(menus[0].path); sidenav.close()"
+         class="mobile-menu-item">
+        {{ menus[0].name }}
+      </a>
+
+      <!-- Autres menus -->
+      <ng-container *ngFor="let menu of menus | slice:1">
+        <a *ngIf="!menu.subItems" 
+           mat-button 
+           (click)="navigate(menu.path); sidenav.close()"
+           class="mobile-menu-item">
+          {{ menu.name }}
+        </a>
+
+        <div *ngIf="menu.subItems" 
+             class="mobile-submenu">
+          <button mat-button 
+                  (click)="toggleSubMenu()"
+                  class="mobile-submenu-button">
+            {{ menu.name }}
+            <mat-icon>{{ showSubMenu ? 'expand_less' : 'expand_more' }}</mat-icon>
+          </button>
+          
+          <div *ngIf="showSubMenu" 
+               class="submenu-items">
+            <a *ngFor="let subItem of menu.subItems" 
+               mat-button 
+               (click)="navigate(subItem.path); sidenav.close(); showSubMenu = false"
+               class="submenu-item">
+              {{ subItem.name }}
+            </a>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </mat-sidenav>
+</mat-sidenav-container>

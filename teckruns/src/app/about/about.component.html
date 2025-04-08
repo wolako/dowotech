@@ -1,56 +1,80 @@
-<div class="banner">
-    <div class="container">
-        <div class="banner-text">
-            <div class="service-title">
-                <h3>A Propos de Nous</h3>
-            </div>
-        </div>
+<section class="about-page">
+  <!-- Bannière Hero -->
+  <div class="hero-section" [@heroFade]>
+    <div class="hero-content">
+      <h1>Solutions IT Intégrées</h1>
+      <p>L'excellence technologique au service de votre réussite</p>
     </div>
-</div>
-<div class="main-about">
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <h2 class="text-center mb-4">À Propos de Dowotech</h2>
-                <p>
-                    Bienvenue chez Dowotech, votre partenaire de confiance pour des solutions informatiques innovantes et efficaces. Depuis notre création, nous nous sommes engagés à fournir des services IT de haute qualité, couvrant un large éventail de besoins, allant du développement d'applications à la gestion d'infrastructure et aux services DevOps.
-                </p>
-            
-                <h3 class="mt-4">Notre Mission</h3>
-                <p>
-                    Chez Dowotech, notre mission est de transformer les défis informatiques en opportunités de croissance pour nos clients. Nous croyons fermement que la technologie peut être un catalyseur puissant pour l'innovation et la réussite des entreprises. En collaborant avec nous, vous bénéficiez de partenaires dédiés, prêts à comprendre vos objectifs commerciaux et à fournir des solutions sur mesure qui surpassent vos attentes.
-                </p>
-            </div>
-            <h3 class="mt-4">Nos valeurs</h3>
-            <div class="row content-value mb-4 py-3">
-                <div class="col col-md-4">
-                    <h4>Engagement envers l'excellence</h4>
-                    <div class="text">
-                        <p class="text-left">
-                            Nous nous efforçons constamment d'atteindre l'excellence dans tout ce que nous faisons, 
-                            en fournissant des solutions qui dépassent les normes de l'industrie.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <h4>Collaboration transparente</h4>
-                    <div class="text">
-                        <p class="text-right">
-                            Nous croyons en une communication ouverte et transparente avec nos clients, 
-                            favorisant une collaboration étroite tout au long du processus.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <h4>Innovation continue</h4>
-                    <div class="text">
-                        <p class="text-right">
-                            La technologie évolue rapidement, et nous nous engageons à rester en tête 
-                            du peloton en adoptant les dernières tendances et technologies.
-                        </p>
-                    </div>
-                </div>
-            </div> 
+  </div>
+
+  <!-- Contenu Principal -->
+  <mat-card class="main-content">
+    <!-- Section Engagement -->
+    <div class="engagement-section">
+      <!-- Colonne Image -->
+      <div class="media-column">
+        <img src="assets/images/infra.png" alt="Architecture Cloud" class="featured-image">
+      </div>
+
+      <!-- Colonne Texte -->
+      <div class="text-column">
+        <div class="engagement-text">
+          <h2>Notre Expertise Multidimensionnelle</h2>
+          <mat-divider class="divider-blue"></mat-divider>
+          <p class="lead-text">
+            Startup innovante, nous unissons développement logiciel, gestion d'infrastructure 
+            et DevOps pour des solutions sur-mesure.
+          </p>
+          <mat-list class="value-list">
+            <mat-list-item *ngFor="let value of values">
+              <mat-icon mat-list-icon>{{ value.icon }}</mat-icon>
+              <div mat-line class="list-title">{{value.title}}</div>
+              <p mat-line class="list-description">{{value.description}}</p>
+            </mat-list-item>
+          </mat-list>
         </div>
+      </div>
     </div>
-</div>
+
+    <!-- Chiffres Clés -->
+     <div class="key-figures">
+       <div class="figure-card" 
+         *ngFor="let figure of keyFigures" 
+         [@countUp] 
+         (@countUp.done)="onCountDone(figure)">
+         <mat-icon class="figure-icon">{{figure.icon}}</mat-icon>
+         <div class="figure-content">
+           <div class="figure-number">{{animatedNumber(figure)}}</div>
+           <div class="figure-label">{{figure.label}}</div>
+         </div>
+       </div>
+     </div>
+
+    <!-- Section Valeurs -->
+    <div class="values-section">
+      <h3>Nos Valeurs Fondatrices</h3>
+      <mat-divider class="divider-blue"></mat-divider>
+      <div class="values-grid">
+        <mat-card class="value-card" *ngFor="let value of coreValues" [@slideIn]>
+          <div class="card-header">
+            <mat-icon>{{value.icon}}</mat-icon>
+            <h4>{{value.title}}</h4>
+          </div>
+          <p>{{value.description}}</p>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- Section Expertise -->
+    <div class="expertise-section">
+      <h3>Notre Expertise Technique</h3>
+      <mat-divider class="divider-blue"></mat-divider>
+      <div class="tech-grid">
+        <div class="tech-item" *ngFor="let tech of technologies" [@techFlip]>
+          <img [src]="tech.logo" [alt]="tech.name + ' logo'">
+          <span class="tech-name">{{tech.name}}</span>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</section>

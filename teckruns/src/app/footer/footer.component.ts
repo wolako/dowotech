@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'teckruns-footer',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
 
+  constructor( private router: Router){}
+
+  navigate(path: string): void {
+    this.router.navigate([path]);
+  }
 }

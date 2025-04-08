@@ -1,138 +1,59 @@
-<div class="banner">
+<!-- gestion-cloud.component.html -->
+  <mat-toolbar class="banner">
     <div class="container">
-        <div class="align-center">
-            <div class="service-title">
-                <h3>Cloud Computing</h3>
-            </div>
-        </div>
+      <div class="service-title">
+        <h1>Gestion Cloud Multi-Provider</h1>
+        <h2>AWS • Azure • GCP • Kubernetes • Terraform</h2>
+      </div>
     </div>
-</div>
-<div class="cloud-descrip">
+  </mat-toolbar>
+  
+  <section class="cloud-description">
+    <mat-card class="description-card">
+      <mat-card-content>
+        <h3>Ingénierie Cloud d'Entreprise</h3>
+        <p>
+          Solutions hybrides et multi-cloud pour infrastructures critiques :
+          <br>Automatisation full-stack • Sécurité Zero Trust • Observabilité unifiée
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </section>
+  
+  <section class="services-cloud">
     <div class="container">
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <div class="cloud">
-                    <h3>Transformez vos défis informatiques en opportunités de croissance avec nos Services Cloud</h3>
-                    <p>
-                        Démarquez-vous avec notre service de cloud innovant qui propulse votre entreprise 
-                        vers de nouveaux sommets. Libérez le potentiel illimité de vos données, collaborez 
-                        de manière transparente, et assurez une agilité sans précédent. Notre solution de cloud 
-                        sur mesure offre bien plus qu'un simple stockage en ligne : elle représente une passerelle vers 
-                        l'efficacité, la sécurité renforcée et l'évolutivité. Découvrez une nouvelle ère de travail 
-                        connecté avec Cloud.
-                    </p>
-                </div>
-            </div>
-        </div>
+      <h3>Notre Expertise Cloud</h3>
+      
+      <div class="services-grid">
+        <mat-card *ngFor="let service of services" class="service-card">
+          <mat-card-header>
+            <mat-card-title>{{ service.title }}</mat-card-title>
+          </mat-card-header>
+          
+          <mat-card-content>
+            <p>{{ service.description }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
     </div>
-</div>
+  </section>
 
-<div class="service-devops">
-    <div class="container">
-
-        <h4>Ce que nous offrons</h4>
-        
-        <div class="row">
-            <div class="col-sm-6 col-md-6 col-lg-3 column">
-                <div class="card">
-                    <h5>Migration vers le Cloud</h5>
-                    <p>
-                        Accompagner les entreprises dans la transition de leurs applications et données vers des 
-                        environnements cloud tels que AWS, Azure ou Google Cloud Platform, en garantissant une migration 
-                        fluide et sécurisée.
-                    </p>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-6 col-lg-3 column">
-                <div class="card">
-                    <h5>Gestion des services cloud</h5>
-                    <p>
-                        Assurer la surveillance constante, la gestion des performances et l'optimisation des ressources 
-                        cloud pour maximiser l'efficacité opérationnelle et réduire les coûts.
-                    </p>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-6 col-lg-3 column">
-                <div class="card">
-                    <h5>Services de stockage cloud</h5>
-                    <p>
-                        Offrir des solutions de stockage à la demande, garantissant la disponibilité, la redondance 
-                        et la sécurité des données, tout en permettant une évolutivité facile en fonction des besoins de l'entreprise.
-                    </p>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-6 col-lg-3 column">
-                <div class="card">
-                    <h5>Sauvegarde et récupération</h5>
-                    <p>
-                        Mettre en place des stratégies de sauvegarde automatisées pour assurer la protection des 
-                        données critiques, avec des mécanismes de récupération rapides en cas de sinistre.
-                    </p>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-6 col-lg-3 column">
-                <div class="card">
-                    <h5>Services de sécurité cloud</h5>
-                    <p>
-                        Implémenter des solutions de sécurité avancées, y compris le chiffrement des données, 
-                        la gestion des identités et des accès, et la détection des menaces, pour garantir la 
-                        confidentialité et l'intégrité des informations stockées dans le cloud. 
-                    </p>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-6 col-lg-3 column">
-                <div class="card">
-                    <h5>Plateforme en tant que service (PaaS)</h5>
-                    <p>
-                        Fournir des plateformes de développement et de déploiement facilitant la création rapide et 
-                        la gestion d'applications sans se préoccuper de l'infrastructure sous-jacente.
-                    </p>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-6 col-lg-3 column">
-                <div class="card">
-                    <h5>Formation à l'utilisation des services cloud</h5>
-                    <p>
-                        Organiser des sessions de formation pour le personnel afin de maximiser l'utilisation des 
-                        fonctionnalités offertes par les services cloud, favorisant ainsi une adoption efficace.
-                    </p>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-6 col-lg-3 column">
-                <div class="card">
-                    <h5>Conseil en stratégie cloud</h5>
-                    <p>
-                        Aider les entreprises à élaborer des stratégies cloud alignées sur leurs objectifs commerciaux, 
-                        en identifiant les meilleures solutions et architectures adaptées à leurs besoins.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="cont">
-    <div class="container">
-        <div class="row text-white">
-            <div class="col-md-8 offset-md-2">
-                <h4>
-                    Prêt à révolutionner votre approche du développement logiciel ? 
-                    Contactez-nous pour une consultation personnalisée.
-                </h4>
-                <p>
-                    Notre équipe d'experts est prête à collaborer avec vous pour comprendre vos besoins spécifiques, 
-                    identifier les opportunités d'optimisation, et élaborer une stratégie sur mesure pour propulser votre entreprise 
-                    vers de nouveaux sommets. N'attendez plus, tirer le meilleur parti des avantages offerts par le cloud computing.
-                </p>
-                <div class="contact">
-                    <a routerLink="/contact" class="btn">Contactez-nous</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="section-service py-4">
-    <h3 class="text-center text-white">Nos Services</h3>
+  <section class="other-services">
+    <h3>Nos Services</h3>
     <techrun-nos-services></techrun-nos-services>
-</div>
+  </section>
+
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-content">
+        <h3>Gestion Cloud Complexe ?</h3>
+        <p>
+          Nous vous offrons une consultation gratuite
+        </p>
+        <a mat-raised-button color="primary" (click)="navigateToContact()">
+          Contactez-nous
+        </a>
+      </div>
+    </div>
+  </section>
+  

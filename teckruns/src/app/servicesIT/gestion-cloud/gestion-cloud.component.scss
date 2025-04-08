@@ -1,38 +1,118 @@
-.cloud-descrip{
-    background-color: #eee;
-    padding: 20px 0;
-    text-align: center;
+/* SCSS */
+@use '@angular/material' as mat;
+@use '../../palettes' as p;
 
-    .container{
-        .row{
-            .cloud{
-                p{
-                    font-size: 1.1rem;
-                }
-            }
-        }
-    }
+.banner {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('/../assets/images/fond4.png') center/cover;
 }
 
-.service-devops{
-    .container{
-        h4{
-            padding: 30px 0;
-            font-size: 2.3rem;
-            color: #fff;
-        }
+.cloud-description {
+  padding: 4rem 0;
+  background: mat.get-color-from-palette(p.$gray-palette, 200);
 
-        .row{
-            padding: 30px 0;
-            .card{
-                padding: 10px;
-                border-radius: 10px;
-                margin-bottom: 10px;
+  .description-card {
+    max-width: min(90%, 1200px);
+    margin: 0 auto;
+    background: transparent;
+    box-shadow: none;
 
-                h5{
-                    font-size: 2rem;
-                }
-            }
-        }
+    h3 {
+      color: mat.get-color-from-palette(p.$blue-palette, 900);
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      text-align: center;
+      margin-bottom: 2rem;
     }
+
+    p {
+      color: #222;
+      line-height: 1.8;
+      text-align: center;
+      margin: 0 auto;
+    }
+  }
+}
+
+.services-cloud {
+  padding: 4rem 0;
+  background: mat.get-color-from-palette(p.$blue-palette, 900);
+
+  h3 {
+    color: mat.get-color-from-palette(p.$white-palette, 500);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    text-align: center;
+    margin-bottom: clamp(2rem, 6vw, 4rem);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+    gap: clamp(1rem, 3vw, 2rem);
+    padding: 0 clamp(1rem, 4vw, 2rem);
+
+    .service-card {
+      background: mat.get-color-from-palette(p.$white-palette, 500);
+      padding: clamp(1.5rem, .5vw, 2rem);
+      border-radius: 12px;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+      }
+
+      p {
+        color: #222;
+        line-height: 1.6;
+        padding-top: 1rem;
+      }
+    }
+  }
+}
+
+.other-services {
+  padding: 4rem 0;
+  background: mat.get-color-from-palette(p.$gray-palette, 200);
+  margin: 0 !important;
+  
+  h3 {
+    color: mat.get-color-from-palette(p.$blue-palette, 900);
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+}
+
+/* Section contact - Style original */
+.contact-section {
+  position: relative;
+  margin: 0 !important;
+  background: mat.get-color-from-palette(p.$blue-palette, 900);
+  padding-bottom: 4rem;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 75%;
+    height: 2px;
+    background-color: mat.get-color-from-palette(p.$blue-palette, 700);
+  }
+
+  .contact-content {
+    text-align: center;
+    padding: 2rem 0;
+
+    h3 {
+      color: mat.get-color-from-palette(p.$blue-palette, 900);
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: #222;
+      margin-bottom: 2rem;
+    }
+  }
 }

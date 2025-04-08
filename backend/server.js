@@ -1,80 +1,31 @@
-// require('dotenv').config();
-// const express = require('express');
-// const bodyParser = require('body-parser');
-// const mysql = require('mysql2/promise');
-// const cors = require('cors');
-
-// const app = express();
-// const port = process.env.PORT || 3000;
-
-// // Middleware pour activer CORS
-// app.use(cors({ origin: true }));
-
-// // Configuration de la connexion à MySQL avec createPool()
-// const pool = mysql.createPool({
-//   host: process.env.DB_HOST,
-//   user: process.env.DB_USER,
-//   password: process.env.DB_PASSWORD,
-//   database: process.env.DB_DATABASE,
-//   waitForConnections: true,
-//   connectionLimit: 10,
-//   queueLimit: 0
-// });
-
-// // Middleware pour parser les requêtes JSON
-// app.use(bodyParser.json());
-
-// // Endpoint pour ajouter un nouveau contact
-// app.post('/contacts', async (req, res) => {
-//   const { nom, prenom, phone, email, services, message } = req.body;
-//   if (!nom || !prenom || !phone || !email || !services || !message) {
-//     return res.status(400).json({ message: 'Tous les champs sont requis' });
-//   }
-
-//   try {
-//     // Obtenir une connexion à partir du pool
-//     const connection = await pool.getConnection();
-
-//     try {
-//       // Exécuter la requête SQL
-//       const [results, fields] = await connection.execute(
-//         'INSERT INTO clients (nom, prenom, email, phone, services, message) VALUES (?, ?, ?, ?, ?, ?)', 
-//         [nom, prenom, email, phone, services, message]
-//       );
-
-//       // Envoyer une réponse au client
-//       res.status(201).json({ message: 'Contact enregistré avec succès' });
-//     } finally {
-//       // Libérer la connexion, même en cas d'erreur
-//       connection.release();
-//     }
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: 'Erreur lors de l\'enregistrement du contact' });
-//   }
-// });
-
-// // Démarrage du serveur
-// app.listen(port, () => {
-//   console.log(`Serveur démarré sur le port ${port}`);
-// });
-
-
 require('dotenv').config();
 const express = require('express');
-const bodyParser = require('body-parser');
+//const bodyParser = require('body-parser');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
+//const contactsRouter = require('./contacts');
 
 // Initialisation de l'application
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Middleware pour activer CORS
-app.use(cors({ origin: process.env.ALLOWED_ORIGIN || 'http://77.37.120.64' }));
 
-// Middleware pour parser les requêtes JSON
-app.use(bodyParser.json());
+app.use(cors({ origin: ['https://www.dowotech.com', 'https://dowotech.com'] }));
+
+// Middleware de log des requêtes
+app.use((req, res, next) => {
+   console.log(`  Requête reçue : ${req.method} ${req.url}`);
+   console.log("  Corps de la requête :", JSON.stringify(req.body, null, 2));   
+
+   if (!req.body || Object.keys(req.body).length === 0) {
+      console.warn("⚠️ ATTENTION : req.body est vide !");
+   }
+   next();
+});
 
 // Configuration de la connexion à MySQL avec createPool()
 const pool = mysql.createPool({
@@ -87,53 +38,72 @@ const pool = mysql.createPool({
   queueLimit: 0,
 });
 
-// Middleware de gestion des erreurs
-app.use((err, req, res, next) => {
-  console.error(err.stack); // Journaliser l'erreur
-  res.status(500).json({ message: 'Erreur interne du serveur' });
+// Route de test
+app.get("/", (req, res) => {
+    res.send("Backend fonctionne !");
 });
 
-// Validation des données (simple exemple)
-const validateContactData = (data) => {
-  const { nom, prenom, phone, email, services, message } = data;
-  return nom && prenom && phone && email && services && message;
-};
+app.get("/api/", (req, res) => {
+    res.json({ message: "API fonctionne !" });
+});
 
-// Endpoint pour ajouter un nouveau contact
-app.post('/contacts', async (req, res) => {
-  const contactData = req.body;
+// ✅ Route Debug pour tester `req.body`
+app.post('/debug-body', (req, res) => {
+   console.log("Données reçues sur /debug-body :", req.body);
+   res.json({ receivedBody: req.body });
+});
 
-  // Validation des données
-  if (!validateContactData(contactData)) {
+// app.use('/api/contacts', contactsRouter);
+
+app.options('/api/contacts', (req, res) => {
+  res.header('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.status(204).send();
+});
+
+// Route POST pour enregistrer un contact
+app.post('/api/contacts', async (req, res) => {
+  console.log("Données reçues par le serveur:", JSON.stringify(req.body, null, 2));
+
+  if (!req.body || Object.keys(req.body).length === 0) {
+    console.log("⚠️ ERREUR : req.body est vide !");
+  }
+
+  const { nom, prenom, phone, email, service, message } = req.body;
+
+  if (!nom || !prenom || !phone || !email || !service || !message) {
+    console.log("Champ(s) manquant(s) :", { nom, prenom, phone, email, service, message });
     return res.status(400).json({ message: 'Tous les champs sont requis' });
   }
 
-  const { nom, prenom, phone, email, services, message } = contactData;
-
   try {
-    // Obtenir une connexion à partir du pool
     const connection = await pool.getConnection();
-
     try {
-      // Exécuter la requête SQL
       const [results] = await connection.execute(
-        'INSERT INTO clients (nom, prenom, email, phone, services, message) VALUES (?, ?, ?, ?, ?, ?)',
-        [nom, prenom, email, phone, services, message]
+        'INSERT INTO clients (nom, prenom, email, phone, service, message) VALUES (?, ?, ?, ?, ?, ?)',
+        [nom, prenom, email, phone, service, message]
       );
 
-      // Envoyer une réponse au client avec l'ID du contact
+      console.log("✅ Insertion réussie :", results);
       res.status(201).json({ id: results.insertId, message: 'Contact enregistré avec succès' });
     } finally {
-      // Libérer la connexion, même en cas d'erreur
       connection.release();
     }
-  } catch (error) {
-    console.error(error);
+  }catch (error) {
+    console.error("Erreur MySQL :", error);
     res.status(500).json({ message: 'Erreur lors de l\'enregistrement du contact' });
+  }
+
+});
+
+console.log("✅ Routes enregistrées dans Express :");
+app._router.stack.forEach((r) => {
+  if (r.route && r.route.path) {
+     console.log(`- ${r.route.path}`);
   }
 });
 
 // Démarrer le serveur
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`Serveur démarré sur le port ${port}`);
 });

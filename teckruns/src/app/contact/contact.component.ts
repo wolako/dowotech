@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContactService } from '../contact.service';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-contact',
@@ -15,16 +16,19 @@ export class ContactComponent implements OnInit {
 
   constructor(
     private formb: FormBuilder,
-    private contactService: ContactService
+    private contactService: ContactService,
+    private vpScroller: ViewportScroller
   ) {}
 
   ngOnInit(): void {
+    this.vpScroller.scrollToPosition([0, 0]);
+
     this.contactForm = this.formb.group({
       service: ['', Validators.required],
       nom: ['', Validators.required],
       prenom: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]], // Exemple de validation pour 10 chiffres
+      phone: ['', [Validators.required, Validators.pattern(/^\+?[0-9\s\-().]{7,20}$/)]],
       message: ['', Validators.required]
     });
   }
@@ -32,8 +36,10 @@ export class ContactComponent implements OnInit {
   onSubmit(): void {
     if (this.contactForm.valid) {
       const { nom, prenom, email, phone, service, message } = this.contactForm.value;
-      
-      this.contactService.addContact(nom, prenom, email, phone, service, message).subscribe(
+
+      const contact = { nom, prenom, email, phone, service, message };
+
+      this.contactService.addContact(contact).subscribe(
         response => {
           console.log(this.contactForm.value);
           console.log('Réponse du serveur:', response);
@@ -52,7 +58,7 @@ export class ContactComponent implements OnInit {
           console.error(error);
           this.successMessage = "";
           this.errorMessage = "Une erreur est survenue lors de l'envoi du formulaire. Veuillez réessayer plus tard.";
-          
+
           // Réinitialiser les messages d'erreur après un délai
           setTimeout(() => {
             this.errorMessage = '';
@@ -63,7 +69,7 @@ export class ContactComponent implements OnInit {
       console.log("Formulaire invalide, veuillez vérifier les champs");
       this.successMessage = "";
       this.errorMessage = "Le formulaire est invalide. Veuillez vérifier les champs.";
-      
+
       // Réinitialiser les messages d'erreur après un délai
       setTimeout(() => {
         this.errorMessage = '';
