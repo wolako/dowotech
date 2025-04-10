@@ -79,4 +79,3 @@ networks:
   dowotech-network:
     name: dowotech-network
     driver: bridge
-      #external: true

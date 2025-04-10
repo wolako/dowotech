@@ -10,7 +10,6 @@ import { ServicesComponent } from './services/services.component';
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { DevopsComponent } from './servicesIT/devops/devops.component';
-import { InfrastructureReseauComponent } from './servicesIT/infrastructure-reseau/infrastructure-reseau.component';
 import { GestionCloudComponent } from './servicesIT/gestion-cloud/gestion-cloud.component';
 import { DeveloppementComponent } from './servicesIT/developpement/developpement.component';
 import { NosServicesComponent } from './nos-services/nos-services.component';
@@ -45,7 +44,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     HomeComponent,
     FooterComponent,
     DevopsComponent,
-    InfrastructureReseauComponent,
     GestionCloudComponent,
     DeveloppementComponent,
     NosServicesComponent, 
