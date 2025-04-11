@@ -1,23 +1,59 @@
 require('dotenv').config();
 const express = require('express');
+const port = process.env.PORT || 3001;
+const crypto = require('crypto');
+const { exec } = require('child_process');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
 
 // Initialisation de l'application
 const app = express();
-const port = process.env.PORT || 3001;
+
+app.post('/webhook',
+          express.raw({ type: 'application/json' }),
+          (req, res) => {
+        const secret = process.env.GITHUB_WEBHOOK_SECRET;
+        const signature = req.headers['x-hub-signature-256'];
+        const payload = req.body;
+        console.log("Secret utilisé (extrait) :", secret?.substring(0, 6) + '...');
+        console.log("Payload reçu (hex) :", payload.toString('hex'));
+
+        if (!signature || !secret) {
+          return res.status(403).json({ error: 'Signature ou secret manquant' });  
+        }
+
+// Vérification de la signature
+        const hmac = crypto.createHmac('sha256', secret);
+        hmac.update(payload);
+        const digest = sha256=${hmac.digest('hex')};
+
+        console.log("Signature calculée sur le serveur : ", digest);
+        console.log("Signature envoyée par GitHub : ", signature);
+
+        if (signature !== digest) {
+          return res.status(403).json({ error: 'Signature invalide' });
+        }
+
+// Exécution du script de déploiement
+        exec('/home/wolako/scripts/deploy.sh', (error, stdout, stderr) => {
+             if (error) {
+               console.error(Erreur d'exécution : ${error});
+               return res.status(500).send('Échec du déploiement');
+             }
+             console.log(Sortie : ${stdout});
+             console.error(Erreurs : ${stderr});
+             res.send('Déploiement réussi');
+        });
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Middleware pour activer CORS
-
 app.use(cors({ origin: ['https://www.dowotech.com', 'https://dowotech.com'] }));
 
 // Middleware de log des requêtes
 app.use((req, res, next) => {
    console.log(`  Requête reçue : ${req.method} ${req.url}`);
-   console.log("  Corps de la requête :", JSON.stringify(req.body, null, 2));   
+   console.log("  Corps de la requête :", JSON.stringify(req.body, null, 2));
 
    if (!req.body || Object.keys(req.body).length === 0) {
       console.warn("⚠️ ATTENTION : req.body est vide !");
@@ -45,14 +81,6 @@ app.get("/api/", (req, res) => {
     res.json({ message: "API fonctionne !" });
 });
 
-// ✅ Route Debug pour tester `req.body`
-app.post('/debug-body', (req, res) => {
-   console.log("Données reçues sur /debug-body :", req.body);
-   res.json({ receivedBody: req.body });
-});
-
-// app.use('/api/contacts', contactsRouter);
-
 app.options('/api/contacts', (req, res) => {
   res.header('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
@@ -61,20 +89,16 @@ app.options('/api/contacts', (req, res) => {
 
 // Route POST pour enregistrer un contact
 app.post('/api/contacts', async (req, res) => {
-  console.log("Données reçues par le serveur:", JSON.stringify(req.body, null, 2));
 
-  if (!req.body || Object.keys(req.body).length === 0) {
-    console.log("⚠️ ERREUR : req.body est vide !");
-  }
+  try{
+        const { nom, prenom, phone, email, service, message } = req.body;
 
-  const { nom, prenom, phone, email, service, message } = req.body;
+        if (!nom || !prenom || !phone || !email || !service || !message) {
+    //console.log("Champ(s) manquant(s) :", { nom, prenom, phone, email, service, message });
+          return res.status(400).json({ message: 'Tous les champs sont requis' });
+        }
 
-  if (!nom || !prenom || !phone || !email || !service || !message) {
-    console.log("Champ(s) manquant(s) :", { nom, prenom, phone, email, service, message });
-    return res.status(400).json({ message: 'Tous les champs sont requis' });
-  }
 
-  try {
     const connection = await pool.getConnection();
     try {
       const [results] = await connection.execute(
@@ -82,8 +106,8 @@ app.post('/api/contacts', async (req, res) => {
         [nom, prenom, email, phone, service, message]
       );
 
-      console.log("✅ Insertion réussie :", results);
-      res.status(201).json({ id: results.insertId, message: 'Contact enregistré avec succès' });
+          console.log("✅ Insertion réussie :", results);
+          res.status(201).json({ id: results.insertId, message: 'Contact enregistré avec succès' });
     } finally {
       connection.release();
     }
@@ -94,14 +118,8 @@ app.post('/api/contacts', async (req, res) => {
 
 });
 
-console.log("✅ Routes enregistrées dans Express :");
-app._router.stack.forEach((r) => {
-  if (r.route && r.route.path) {
-     console.log(`- ${r.route.path}`);
-  }
-});
-
 // Démarrer le serveur
 app.listen(port, '0.0.0.0', () => {
-  console.log(`Serveur démarré sur le port ${port}`);
+  console.log(Serveur démarré sur le port ${port});
+  console.log('Webhook actif sur : /webhook');
 });
