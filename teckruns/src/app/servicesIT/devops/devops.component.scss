@@ -133,7 +133,7 @@
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 75%;
+    width: 60%;
     height: 2px;
     background-color: mat.get-color-from-palette(p.$blue-palette, 700);
   }
@@ -154,6 +154,7 @@
     }
   }
 }
+
 
 @media (max-width: 768px) {
   .banner {

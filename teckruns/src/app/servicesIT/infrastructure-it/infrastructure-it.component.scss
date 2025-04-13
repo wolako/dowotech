@@ -127,7 +127,7 @@ $tablet: 960px;
     }
 }
 
-  .other-services{
+.other-services{
     background: mat.get-color-from-palette(p.$gray-palette, 200);
     padding: 4rem 0;
 
@@ -138,9 +138,9 @@ $tablet: 960px;
         margin-bottom: 3rem;
     }
 
-  }
+}
 
-  .contact-section {
+.contact-section {
     position: relative;
     margin: 0 !important;
     background: mat.get-color-from-palette(p.$blue-palette, 900);
@@ -152,7 +152,7 @@ $tablet: 960px;
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 75%;
+      width: 60%;
       height: 2px;
       background-color: mat.get-color-from-palette(p.$blue-palette, 700);
     }
@@ -172,8 +172,7 @@ $tablet: 960px;
         margin-bottom: 2rem;
       }
     }
-  }
-
+}
 
 /* Styles communs */
 .container {

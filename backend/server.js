@@ -19,13 +19,13 @@ app.post('/webhook',
         console.log("Payload reçu (hex) :", payload.toString('hex'));
 
         if (!signature || !secret) {
-          return res.status(403).json({ error: 'Signature ou secret manquant' });  
+          return res.status(403).json({ error: 'Signature ou secret manquant' });
         }
 
 // Vérification de la signature
         const hmac = crypto.createHmac('sha256', secret);
         hmac.update(payload);
-        const digest = sha256=${hmac.digest('hex')};
+        const digest = `sha256=${hmac.digest('hex')}`;
 
         console.log("Signature calculée sur le serveur : ", digest);
         console.log("Signature envoyée par GitHub : ", signature);
@@ -37,11 +37,11 @@ app.post('/webhook',
 // Exécution du script de déploiement
         exec('/home/wolako/scripts/deploy.sh', (error, stdout, stderr) => {
              if (error) {
-               console.error(Erreur d'exécution : ${error});
+                console.error(`Erreur d'exécution : ${error}`);
                return res.status(500).send('Échec du déploiement');
              }
-             console.log(Sortie : ${stdout});
-             console.error(Erreurs : ${stderr});
+             console.log(`Sortie : ${stdout}`);
+             console.error(`Erreurs : ${stderr}`);
              res.send('Déploiement réussi');
         });
 });
@@ -90,36 +90,41 @@ app.options('/api/contacts', (req, res) => {
 // Route POST pour enregistrer un contact
 app.post('/api/contacts', async (req, res) => {
 
-  try{
-        const { nom, prenom, phone, email, service, message } = req.body;
+    console.log("Données reçues par le serveur:", JSON.stringify(req.body, null, 2));
 
-        if (!nom || !prenom || !phone || !email || !service || !message) {
+    if (!req.body || Object.keys(req.body).length === 0) {
+      console.log("⚠️ ERREUR : req.body est vide !");
+    }
+
+    const { nom, prenom, phone, email, service, message } = req.body;
+
+    if (!nom || !prenom || !phone || !email || !service || !message) {
     //console.log("Champ(s) manquant(s) :", { nom, prenom, phone, email, service, message });
           return res.status(400).json({ message: 'Tous les champs sont requis' });
-        }
+    }
 
-
-    const connection = await pool.getConnection();
     try {
-      const [results] = await connection.execute(
-        'INSERT INTO clients (nom, prenom, email, phone, service, message) VALUES (?, ?, ?, ?, ?, ?)',
-        [nom, prenom, email, phone, service, message]
-      );
+       const connection = await pool.getConnection();
+       try {
+          const [results] = await connection.execute(
+             'INSERT INTO clients (nom, prenom, email, phone, service, message) VALUES (?, ?, ?, ?, ?, ?)',
+              [nom, prenom, email, phone, service, message]
+          );
 
           console.log("✅ Insertion réussie :", results);
           res.status(201).json({ id: results.insertId, message: 'Contact enregistré avec succès' });
-    } finally {
-      connection.release();
+       } finally {
+         connection.release();
+       }
+    }catch (error) {
+      console.error("Erreur MySQL :", error);
+      res.status(500).json({ message: 'Erreur lors de l\'enregistrement du contact' });
     }
-  }catch (error) {
-    console.error("Erreur MySQL :", error);
-    res.status(500).json({ message: 'Erreur lors de l\'enregistrement du contact' });
-  }
 
 });
 
 // Démarrer le serveur
 app.listen(port, '0.0.0.0', () => {
-  console.log(Serveur démarré sur le port ${port});
+  console.log(`Serveur démarré sur le port ${port}`);
   console.log('Webhook actif sur : /webhook');
 });

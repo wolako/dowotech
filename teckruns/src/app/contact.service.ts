@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class ContactService {
 
-  private baseUrl = 'http://dowotech.com/api';
+  private baseUrl = 'https://dowotech.com/api';
 
   constructor(private http: HttpClient) {
       console.log("API URL utilisée :", this.baseUrl);

@@ -167,6 +167,7 @@
 }
 
 /* Section contact - Style with underline */
+
 .contact-section {
   position: relative;
   margin: 0 !important;
@@ -179,14 +180,14 @@
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 75%;
+    width: 60%;
     height: 2px;
     background-color: mat.get-color-from-palette(p.$blue-palette, 700);
   }
 
   .contact-content {
     text-align: center;
-    padding: 2rem 0;
+    padding: 2rem 1rem;
 
     h3 {
       color: mat.get-color-from-palette(p.$blue-palette, 900);
