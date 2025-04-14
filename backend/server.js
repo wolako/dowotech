@@ -10,11 +10,18 @@ const cors = require('cors');
 const app = express();
 
 app.post('/webhook',
-          express.raw({ type: 'application/json' }),
+          express.raw({ type: req => req.headers['content-type']?.startsWith('application/json') }),
           (req, res) => {
         const secret = process.env.GITHUB_WEBHOOK_SECRET;
         const signature = req.headers['x-hub-signature-256'];
         const payload = req.body;
+
+        // Sécurité : vérifier que le payload est bien un Buffer
+        if (!payload || !Buffer.isBuffer(payload)) {
+          console.warn("⚠️ Payload invalide ou non brut");
+          return res.status(400).json({ error: 'Payload invalide ou non brut' });
+        }
+
         console.log("Secret utilisé (extrait) :", secret?.substring(0, 6) + '...');
         console.log("Payload reçu (hex) :", payload.toString('hex'));
 
