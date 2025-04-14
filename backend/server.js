@@ -10,7 +10,7 @@ const cors = require('cors');
 const app = express();
 
 app.post('/webhook',
-          express.raw({ type: req => req.headers['content-type']?.startsWith('application/json') }),
+          express.raw({ type: '*/*' }),
           (req, res) => {
         const secret = process.env.GITHUB_WEBHOOK_SECRET;
         const signature = req.headers['x-hub-signature-256'];
