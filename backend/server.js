@@ -55,7 +55,6 @@ app.post('/webhook',
 });
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: ['https://www.dowotech.com', 'https://dowotech.com'] }));
 
 // Middleware de log des requêtes
