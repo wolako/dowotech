@@ -55,9 +55,11 @@ app.use((req, res, next) => {
    console.log(`  Requête reçue : ${req.method} ${req.url}`);
    console.log("  Corps de la requête :", JSON.stringify(req.body, null, 2));
 
-   if (!req.body || Object.keys(req.body).length === 0) {
-      console.warn("⚠️ ATTENTION : req.body est vide !");
-   }
+   if (req.headers['content-type'] === 'application/json' && Buffer.isBuffer(req.body)) {
+      console.warn("⚠️ req.body est un Buffer pour cette requête (raw)");
+    } else {
+      console.log("  Corps de la requête :", JSON.stringify(req.body, null, 2));
+    }
    next();
 });
 
