@@ -120,6 +120,23 @@
           }
         }
       }
+
+      .send-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row !important;
+        direction: ltr !important;
+      }
+      
+      .send-button .label {
+        order: 1;
+      }
+      
+      .send-button .icon {
+        order: 2;
+        margin-left: 8px;
+      } 
     }
   }
 }

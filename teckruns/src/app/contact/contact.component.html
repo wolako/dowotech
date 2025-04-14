@@ -88,12 +88,13 @@
           </div>
 
           <div class="text-center mt-4">
-            <button mat-raised-button 
-                    class="button"
-                    color="primary" 
-                    type="submit"
-                    [disabled]="contactForm.invalid">
-              Envoyer le message
+            <button mat-raised-button
+                    color="primary"
+                    class="send-button"
+                    [disabled]="contactForm.invalid"
+                    [ngStyle]="{'background-color': contactForm.valid ? '#26327e' : '#9e9e9e'}">
+              <span class="label">Envoyer</span>
+              <mat-icon class="icon">send</mat-icon>
             </button>
           </div>
 
