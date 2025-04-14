@@ -8,6 +8,7 @@ const cors = require('cors');
 
 // Initialisation de l'application
 const app = express();
+app.use(express.urlencoded({ extended: true }));
 
 app.post('/webhook',
           express.raw({ type: '*/*' }),
