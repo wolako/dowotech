@@ -45,11 +45,16 @@ app.post('/webhook',
 // Exécution du script de déploiement
         exec('/home/wolako/scripts/deploy.sh', (error, stdout, stderr) => {
              if (error) {
-                console.error(`Erreur d'exécution : ${error}`);
-               return res.status(500).send('Échec du déploiement');
+                console.error(`Erreur d'exécution : ${error.message}`);
+                return res.status(500).json({
+                  message: 'Échec du déploiement',
+                  stdout: stdout,
+                  stderr: stderr,
+                  error: error.message
+                });
              }
-             console.log(`Sortie : ${stdout}`);
-             console.error(`Erreurs : ${stderr}`);
+             console.log(`✅ Déploiement stdout:\n${stdout}`);
+             console.error(`🧾 Déploiement stderr:\n${stderr}`);
              res.send('Déploiement réussi');
         });
 });
