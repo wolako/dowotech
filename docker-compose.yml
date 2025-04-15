@@ -27,11 +27,11 @@ services:
     ports:
       - "3001:3001"
     environment:
-      DB_HOST: ${DB_HOST}
-      DB_USER: ${MYSQL_USER}
-      DB_PASSWORD: ${MYSQL_PASSWORD}
-      DB_DATABASE: ${MYSQL_DATABASE}
-      GITHUB_WEBHOOK_SECRET: ${GITHUB_WEBHOOK_SECRET}
+      DB_HOST: mysql
+      DB_USER: wola
+      DB_PASSWORD: wol@kodw
+      DB_DATABASE: dowotech_contact
+      GITHUB_WEBHOOK_SECRET: jvrZPCCLDfgItbhFKUvS16tSA+0u7Z0YUCylPLpS0EA=
     depends_on:
       mysql:
         condition: service_healthy
@@ -54,7 +54,7 @@ services:
       - dowotech-network
     container_name: dowotech-frontend-1
     volumes:
-      - frontend_build:/var/www/dowotech-frontend/teckruns
+      - frontend_build:/frontend_build
 
   nginx:
     image: nginx:latest
