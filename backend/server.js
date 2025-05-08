@@ -8,7 +8,7 @@ const cors = require('cors');
 
 // Initialisation de l'application
 const app = express();
-app.use(express.urlencoded({ extended: true }));
+//app.use(express.urlencoded({ extended: true }));
 
 app.post('/webhook',
           express.raw({ type: 'application/json' }),
@@ -61,6 +61,7 @@ app.post('/webhook',
 
 app.use(express.json());
 app.use(cors({ origin: ['https://www.dowotech.com', 'https://dowotech.com'] }));
+//app.use(express.urlencoded({ extended: true }));
 
 // Middleware de log des requêtes
 app.use((req, res, next) => {

@@ -5,7 +5,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: dowoDbTech
       MYSQL_DATABASE: dowotech_contact
-      //MYSQL_ROUNDCUBE_DATABASE: roundcubemail
+      MYSQL_ROUNDCUBE_DATABASE: roundcubemail
       MYSQL_USER: wola
       MYSQL_PASSWORD: wol@kodw
 
@@ -37,10 +37,21 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+    volumes:
+      - /home/wolako/scripts:/home/wolako/scripts
     networks:
       dowotech-network:
         aliases:
          - backend
+
+  frontend-builder:
+    image: node:18
+    working_dir: /app
+    volumes:
+         - .:/app
+         - frontend_build:/app/teckruns/dist/teckruns
+    command: sh -c "cd teckruns && npm ci && npm run build --configuration=production"
+
 
   frontend:
     build:
@@ -77,13 +88,17 @@ services:
       - ROUNDCUBEMAIL_DEFAULT_PORT=993
       - ROUNDCUBEMAIL_SMTP_SERVER=tls://mail.dowotech.com
       - ROUNDCUBEMAIL_SMTP_PORT=587
-      #- ROUNDCUBEMAIL_NO_OVERWRITE=1
+      - ROUNDCUBEMAIL_IMAP_CONN_OPTIONS={"ssl":{"verify_peer":false,"verify_peer_name":false}}
+      - ROUNDCUBEMAIL_SMTP_CONN_OPTIONS={"ssl":{"verify_peer":false,"verify_peer_name":false}}
+      - ROUNDCUBEMAIL_PLUGINS=archive,zipdownload
+      - ROUNDCUBEMAIL_DEBUG_LEVEL=4
+      - ROUNDCUBEMAIL_TEMP_DIR=/var/www/html/temp
+      - ROUNDCUBEMAIL_LOG_DIR=/var/www/html/logs
 
-        #volumes:
-      #- ./roundcube/config:/var/www/html/config
-         #  - ./roundcube/config/config.docker.inc.php:/var/www/html/config/config.docker.inc.php
-        #- ./roundcube/logs:/var/www/html/logs
-        #- ./roundcube/temp:/var/www/html/temp
+    volumes:
+      - ./roundcube/config:/var/www/html/config
+      - ./roundcube/logs:/var/www/html/logs
+      - ./roundcube/temp:/var/www/html/temp
 
     networks:
       - dowotech-network
@@ -114,8 +129,6 @@ services:
 volumes:
   db_data:
   frontend_build:
-    #roundcube-logs:
-    #roundcube-temp:
 
 networks:
   dowotech-network:
