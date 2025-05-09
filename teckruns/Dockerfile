@@ -1,20 +1,20 @@
-#FROM node:18 AS build
+FROM node:18 AS build
 
-#WORKDIR /app
+WORKDIR /app
 
-#COPY teckruns/ .
+COPY teckruns/ .
 
-#RUN npm ci
+RUN npm ci
 
-#RUN npm run build --configuration=production
+RUN npm run build --configuration=production
 
 FROM nginx:1.25-alpine
 
 COPY nginx/dowotech.conf /etc/nginx/conf.d/default.conf
 
-#COPY --from=build /app/dist/teckruns /var/www/dowotech-frontend/teckruns
+COPY --from=build /app/dist/teckruns /var/www/dowotech-frontend/teckruns
 
-#RUN mkdir -p /frontend_build && cp -r /var/www/dowotech-frontend/teckruns/* /frontend_build/
+RUN mkdir -p /frontend_build && cp -r /var/www/dowotech-frontend/teckruns/* /frontend_build/
 
 EXPOSE 80 443
 
